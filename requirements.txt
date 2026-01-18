@@ -1,13 +1,24 @@
+# FastAPI 웹 프레임워크
 fastapi==0.109.0
 uvicorn[standard]==0.27.0
-langchain==0.1.0
-langchain-anthropic==0.1.1
-langchain-community==0.0.13
+
+# LangChain 핵심 라이브러리
+langchain==0.1.0            # LangChain 코어
+langchain-anthropic==0.1.1  # Anthropic Claude 연동
+langchain-community==0.0.13 # LangChain 커뮤니티 통합 도구들
+
+# 벡터 데이터베이스 (의미론적 검색을 위한 기반)
 chromadb==0.4.22
+
+# 데이터 검증 및 설정 관리
 pydantic==2.5.3
 pydantic-settings==2.1.0
 python-dotenv==1.0.0
+
+# HTTP 클라이언트 및 파일 처리
 httpx==0.26.0
 requests==2.31.0
 aiofiles==23.2.1
-tavily-python==0.3.0
+
+# 외부 API 연동 (선택사항)
+tavily-python==0.3.0    # 웹 검색 API (에이전트의 '눈')

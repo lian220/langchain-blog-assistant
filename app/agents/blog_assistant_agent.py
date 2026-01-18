@@ -23,8 +23,9 @@ class BlogAssistantAgent:
         settings = get_settings()
 
         # Initialize Claude model as the "brain" of the agent
+        # Using latest available model: Claude Sonnet 4
         self.llm = ChatAnthropic(
-            model="claude-3-5-sonnet-20241022",
+            model="claude-sonnet-4-20250514",
             anthropic_api_key=settings.anthropic_api_key,
             temperature=0.7,
         )
