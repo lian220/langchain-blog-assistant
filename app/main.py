@@ -4,6 +4,7 @@ from app.models.schemas import BlogRequest, BlogResponse, HealthResponse
 from app.agents.blog_assistant_agent import get_blog_assistant_agent
 from app.database import get_blog_database
 from typing import List, Dict, Any
+from pathlib import Path
 import re
 
 # Create FastAPI app
@@ -90,10 +91,26 @@ async def generate_blog(request: BlogRequest, background_tasks: BackgroundTasks)
         if file_name:
 
             def store_in_db():
+                # Read the actual blog post content from the MDX file
+                blog_file_path = Path("content/blog") / file_name
+                actual_content = ""
+                
+                if blog_file_path.exists():
+                    try:
+                        with open(blog_file_path, "r", encoding="utf-8") as f:
+                            actual_content = f.read()
+                    except Exception as e:
+                        print(f"Error reading blog file: {e}")
+                        # Fallback to output if file read fails
+                        actual_content = output
+                else:
+                    # If file doesn't exist yet, use output as fallback
+                    actual_content = output
+                
                 db = get_blog_database()
                 db.add_blog_post(
                     title=request.topic,
-                    content=output,
+                    content=actual_content,  # Use actual file content instead of agent output
                     file_name=file_name,
                     metadata={"topic": request.topic},
                 )
